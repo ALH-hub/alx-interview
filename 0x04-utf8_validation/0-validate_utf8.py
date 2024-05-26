@@ -4,24 +4,20 @@
 
 def validUTF8(data):
     """determines if a given data set represents a valid UTF-8 encoding"""
-    continuation_bytes = 0
-
-    for byte in data:
-        if byte & 0b11000000 == 0b10000000:
-            continuation_bytes -= 1
-        else:
-            if byte & 0b10000000 == 0:
+    n_bytes = 0
+    for num in data:
+        bin_rep = format(num, '#010b')[-8:]
+        if n_bytes == 0:
+            for bit in bin_rep:
+                if bit == '0':
+                    break
+                n_bytes += 1
+            if n_bytes == 0:
                 continue
-            elif byte & 0b11100000 == 0b11000000:
-                continuation_bytes = 1
-            elif byte & 0b11110000 == 0b11100000:
-                continuation_bytes = 2
-            elif byte & 0b11111000 == 0b11110000:
-                continuation_bytes = 3
-            else:
+            if n_bytes == 1 or n_bytes > 4:
                 return False
-
-        if continuation_bytes < 0:
-            return False
-
-    return continuation_bytes == 0
+        else:
+            if not (bin_rep[0] == '1' and bin_rep[1] == '0'):
+                return False
+        n_bytes -= 1
+    return n_bytes == 0

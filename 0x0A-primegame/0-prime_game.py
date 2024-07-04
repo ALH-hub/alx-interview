@@ -2,7 +2,7 @@
 """prime number game"""
 
 
-def is_winner(x, nums):
+def iswinner(x, nums):
     """
     Determines the winner of the game based on prime number selection.
 
@@ -43,4 +43,4 @@ def is_winner(x, nums):
     if ben_wins * 2 == x:
         return None
 
-    return "Ben" if ben_wins > x // 2 else "Maria"
+    return "Ben" if ben_wins > (x // 2) else "Maria"

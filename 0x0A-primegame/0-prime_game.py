@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""prime game module"""
+
+
 def isWinner(x, nums):
  """Determine who the winner of the game is. Maria or Ben."""
  maria_wins = 0
